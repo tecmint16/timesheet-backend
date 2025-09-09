@@ -2,17 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Timesheet;
+use App\Models\Aplikasi;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TimesheetSeeder extends Seeder
+class AplikasiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Timesheet::factory()->count(10)->create();
+        // Aplikasi::factory(5)->create();
+
+        Aplikasi::create([
+            'NAMA_APLIKASI' => 'Medallion',
+        ]);
     }
 }

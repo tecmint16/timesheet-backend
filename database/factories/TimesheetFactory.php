@@ -28,6 +28,8 @@ class TimesheetFactory extends Factory
             'CLUSTER'          => $this->faker->word(),
             'APLIKASI'         => $this->faker->word(),
             'KEGIATAN'         => $this->faker->sentence(4),
+            'ID_USER'          => $this->faker->numberBetween(1, 50),
+            'ID_PROJECT'       => $this->faker->numberBetween(1, 20),
         ];
     }
 }

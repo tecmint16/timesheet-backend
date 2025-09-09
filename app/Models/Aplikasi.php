@@ -1,0 +1,12 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Aplikasi extends Model
+{
+    protected $table = 'TB_APLIKASI';
+    protected $primaryKey = 'ID_APLIKASI';
+    protected $fillable = ['ID_APLIKASI', 'NAMA_APLIKASI'];
+}

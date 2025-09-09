@@ -62,11 +62,11 @@ class TimesheetController extends Controller
         // Fetch users from the database (you can customize this as needed)
         $timesheets = DB::table('tb_timesheet')
             // Apply search filter if provided
-            ->when($request->input('id'), function ($query, $id) {
-                return $query->where('id', 'like', '%' . $id . '%');
+            ->when($request->input('id_timesheet'), function ($query, $id) {
+                return $query->where('id_timesheet', 'like', '%' . $id . '%');
             })
             // Order by latest
-            ->orderBy('id', 'asc')
+            ->orderBy('id_timesheet', 'asc')
             // Paginate results
             ->paginate(10);
         // $users = User::paginate(10);

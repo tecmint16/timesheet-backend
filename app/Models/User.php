@@ -45,4 +45,19 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'id_project', 'id_project');
+    }
+
+    public function aplikasi()
+    {
+        return $this->belongsTo(Aplikasi::class, 'id_aplikasi', 'id_aplikasi');
+    }
+
+    public function cluster()
+    {
+        return $this->belongsTo(Cluster::class, 'id_cluster', 'id_cluster');
+    }
 }

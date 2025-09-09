@@ -76,7 +76,7 @@
                                         </tr>
                                         @foreach ($timesheets as $timesheet)
                                             <tr>
-                                                <td>{{ $timesheet->id }}</td>
+                                                <td>{{ $timesheet->id_timesheet }}</td>
                                                 <td>{{ $timesheet->tanggal }}</td>
                                                 <td>{{ $timesheet->shifting }}</td>
                                                 <td>{{ $timesheet->jam_masuk }}</td>

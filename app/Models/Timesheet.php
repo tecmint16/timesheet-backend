@@ -15,7 +15,6 @@ class Timesheet extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'ID',
         'TANGGAL',
         'SHIFTING',
         'JAM_MASUK',
@@ -27,6 +26,8 @@ class Timesheet extends Model
         'CLUSTER',
         'APLIKASI',
         'KEGIATAN',
+        'ID_USER',
+        'ID_PROJECT',
     ];
 
     protected $casts = [

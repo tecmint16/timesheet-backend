@@ -3,9 +3,9 @@
 ✅ 3. Koneksi Database Oracel dan Laravel (Sudah Terkoneksi)
 ✅ 4. Membuat Model Data dan Skema pada Laravel dan Database (Selesai)
 5. Buat UI untuk Insert Data
-6. Tambahkan kolom id_user
-7. Tambahkan kolom id_timesheet
-8. Buat Tabel Project
-9. Buat Tabel Aplikasi
-10. Buat Tabel Relasi(Join) User_Project_Aplikasi
-11. Pada Tabel Timesheet tambahkan user_id
+✅ 6. Tambahkan kolom id_user
+✅ 7. Tambahkan kolom id_timesheet
+✅ 8. Buat Tabel Project
+✅ 9. Buat Tabel Aplikasi
+✅ 10. Buat Tabel Relasi(Join) User_Project_Aplikasi
+✅ 11. Pada Tabel Timesheet tambahkan user_id

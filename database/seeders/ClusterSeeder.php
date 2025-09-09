@@ -2,17 +2,21 @@
 
 namespace Database\Seeders;
 
-use App\Models\Timesheet;
+use App\Models\Cluster;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class TimesheetSeeder extends Seeder
+class ClusterSeeder extends Seeder
 {
     /**
      * Run the database seeds.
      */
     public function run(): void
     {
-        Timesheet::factory()->count(10)->create();
+        // Cluster::factory(5)->create();
+
+        Cluster::create([
+            'NAMA_CLUSTER' => 'Custody',
+        ]);
     }
 }
