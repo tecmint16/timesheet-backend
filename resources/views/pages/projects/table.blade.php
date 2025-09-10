@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Timesheet Tabel')
+@section('title', 'Project Tabel')
 
 @push('style')
     <!-- CSS Libraries --><!-- CSS Libraries -->
@@ -13,19 +13,18 @@
 @endpush
 
 @section('main')
-
     <div class="main-content">
         <section class="section">
             <div class="section-header">
-                <h1>Timesheet</h1>
+                <h1>Project</h1>
                 <div class="section-header-button">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addNewTimesheetModal">Add
+                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addNewProjectModal">Add
                         New</a>
                 </div>
                 <div class="section-header-breadcrumb">
                     <div class="breadcrumb-item active"><a href="#">Dashboard</a></div>
-                    <div class="breadcrumb-item"><a href="#">Timesheet</a></div>
-                    <div class="breadcrumb-item">Timesheet Table</div>
+                    <div class="breadcrumb-item"><a href="#">Project</a></div>
+                    <div class="breadcrumb-item">Project Table</div>
                 </div>
             </div>
             <div class="section-body">
@@ -33,7 +32,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>Timesheet Table</h4>
+                                <h4>Project Table</h4>
                             </div>
                             <div class="card-body">
                                 <div class="float-left">
@@ -45,9 +44,10 @@
                                     </select>
                                 </div>
                                 <div class="float-right">
-                                    <form method="GET" action="{{ route('timesheet.index') }}">
+                                    <form method="GET" action="{{ route('project.index') }}">
                                         <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Search" name="id">
+                                            <input type="text" class="form-control" placeholder="Search" name="search"
+                                                value="{{ request('search') }}">
                                             <div class="input-group-append">
                                                 <button class="btn btn-primary"><i class="fas fa-search"></i></button>
                                             </div>
@@ -60,52 +60,48 @@
                                 <div class="table-responsive">
                                     <table class="table-striped table">
                                         <tr>
-                                            <th>Id</th>
-                                            <th>Tanggal</th>
-                                            <th>Shifting</th>
-                                            <th>Jam Masuk</th>
-                                            <th>Jam Pulang</th>
-                                            <th>Total Jam Kerja</th>
-                                            <th>Status Kehadiran</th>
-                                            <th>Project</th>
+                                            <th>NO</th>
                                             <th>Kode Project</th>
-                                            <th>Cluster</th>
-                                            <th>Aplikasi</th>
-                                            <th>Kegiatan</th>
+                                            <th>Nama Project</th>
                                             <th>Action</th>
                                         </tr>
-                                        @foreach ($timesheets as $timesheet)
+                                        @forelse ($projects as $project)
                                             <tr>
-                                                <td>{{ $timesheet->id }}</td>
-                                                <td>{{ $timesheet->tanggal }}</td>
-                                                <td>{{ $timesheet->shifting }}</td>
-                                                <td>{{ $timesheet->jam_masuk }}</td>
-                                                <td>{{ $timesheet->jam_pulang }}</td>
-                                                <td>{{ $timesheet->total_jam_kerja }}</td>
-                                                <td>{{ $timesheet->status_kehadiran }}</td>
-                                                <td>{{ $timesheet->project }}</td>
-                                                <td>{{ $timesheet->kode_project }}</td>
-                                                <td>{{ $timesheet->cluster }}</td>
-                                                <td>{{ $timesheet->aplikasi }}</td>
-                                                <td>{{ $timesheet->kegiatan }}</td>
+                                                <td>{{ $project->id_project }}</td>
+                                                <td>{{ $project->kode_project }}</td>
+                                                <td>{{ $project->nama_project }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary">Edit</a>
-                                                    <a href="#" class="btn btn-danger">Delete</a>
+                                                    <a href="#" class="btn btn-primary btn-edit-project"
+                                                        data-id="{{ $project->id_project }}"
+                                                        data-kode="{{ $project->kode_project }}"
+                                                        data-nama="{{ $project->nama_project }}">Edit</a>
+                                                    <form action="{{ route('project.destroy', $project->id_project) }}"
+                                                        method="POST" style="display:inline-block;"
+                                                        onsubmit="return confirm('Yakin ingin menghapus project ini?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                                    </form>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center">No Projects Found.</td>
+                                            </tr>
+                                        @endforelse
                                     </table>
                                 </div>
-                                <div class="float-right">
+                                {{-- <div class="float-right">
                                     {{ $timesheets->withQueryString()->links() }}
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        @include('pages.timesheets.components.form-add-timesheet')
+        @include('pages.projects.components.form-add-project')
+        @include('pages.projects.components.form-edit-project')
     </div>
 @endsection
 
@@ -123,4 +119,17 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script>
+        $(document).on('click', '.btn-edit-project', function() {
+            var id = $(this).data('id');
+            var kode = $(this).data('kode');
+            var nama = $(this).data('nama');
+            $('#edit_id_project').val(id);
+            $('#edit_kode_project').val(kode);
+            $('#edit_nama_project').val(nama);
+            // Set action form
+            $('#editProjectForm').attr('action', '/project/' + id);
+            $('#editProjectModal').modal('show');
+        });
+    </script>
 @endpush
