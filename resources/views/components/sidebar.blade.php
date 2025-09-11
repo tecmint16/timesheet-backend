@@ -48,7 +48,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i><span>Aplikasi</span></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="nav-link" href="#">All Aplikasi</a>
+                        <a class="nav-link" href="{{ route('application.index') }}">All Aplikasi</a>
                     </li>
                 </ul>
             </li>

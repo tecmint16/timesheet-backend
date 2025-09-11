@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TimesheetController;
 use App\Http\Controllers\UserController;
@@ -33,4 +34,7 @@ Route::middleware(['auth'])->group(function () {
 
     // Project Routes
     Route::resource('project', ProjectController::class);
+
+    // Application Routes
+    Route::resource('application', ApplicationController::class);
 });

@@ -52,12 +52,15 @@ class ProjectController extends Controller
                 'NAMA_PROJECT' => $request->NAMA_PROJECT,
             ]);
 
-        return redirect()->route('project.index')->with('success', 'Project updated successfully.');
+        return redirect()
+            ->route('project.index')
+            ->with('success', 'Project updated successfully.');
     }
 
     public function destroy($id)
     {
         DB::table('tb_project')->where('id_project', $id)->delete();
-        return redirect()->route('project.index')->with('success', 'Project deleted successfully.');
+        return redirect()
+            ->route('project.index')->with('success', 'Project deleted successfully.');
     }
 }
