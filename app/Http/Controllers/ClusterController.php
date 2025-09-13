@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Cluster;
 
 class ClusterController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DB::table('TB_CLUSTER')->orderBy('ID_CLUSTER', 'asc');
+        $query = Cluster::orderBy('ID_CLUSTER', 'asc');
 
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
@@ -29,7 +29,7 @@ class ClusterController extends Controller
             'NAMA_CLUSTER' => 'required',
         ]);
 
-        DB::table('TB_CLUSTER')->insert([
+        Cluster::create([
             'NAMA_CLUSTER' => $request->NAMA_CLUSTER,
         ]);
 
@@ -44,8 +44,7 @@ class ClusterController extends Controller
             'NAMA_CLUSTER' => 'required',
         ]);
 
-        DB::table('TB_CLUSTER')
-            ->where('ID_CLUSTER', $id)
+        Cluster::where('ID_CLUSTER', $id)
             ->update([
                 'NAMA_CLUSTER' => $request->NAMA_CLUSTER,
             ]);
@@ -57,7 +56,7 @@ class ClusterController extends Controller
 
     public function destroy($id)
     {
-        DB::table('TB_CLUSTER')->where('ID_CLUSTER', $id)->delete();
+        Cluster::where('ID_CLUSTER', $id)->delete();
         return redirect()
             ->route('cluster.index')
             ->with('success', 'Cluster deleted successfully.');

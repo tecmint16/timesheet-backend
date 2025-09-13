@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Project;
 
 class ProjectController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DB::table('tb_project')->orderBy('id_project', 'asc');
+        $query = Project::orderBy('ID_PROJECT', 'asc');
 
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
@@ -30,7 +30,7 @@ class ProjectController extends Controller
             'NAMA_PROJECT' => 'required',
         ]);
 
-        DB::table('tb_project')->insert([
+        Project::create([
             'KODE_PROJECT' => $request->KODE_PROJECT,
             'NAMA_PROJECT' => $request->NAMA_PROJECT,
         ]);
@@ -46,8 +46,7 @@ class ProjectController extends Controller
             'NAMA_PROJECT' => 'required',
         ]);
 
-        DB::table('tb_project')
-            ->where('id_project', $id)
+        Project::where('id_project', $id)
             ->update([
                 'NAMA_PROJECT' => $request->NAMA_PROJECT,
             ]);
@@ -59,7 +58,7 @@ class ProjectController extends Controller
 
     public function destroy($id)
     {
-        DB::table('tb_project')->where('id_project', $id)->delete();
+        Project::where('id_project', $id)->delete();
         return redirect()
             ->route('project.index')->with('success', 'Project deleted successfully.');
     }

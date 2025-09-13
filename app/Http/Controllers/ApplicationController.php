@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Aplikasi;
 
 class ApplicationController extends Controller
 {
     public function index(Request $request)
     {
-        $query = DB::table('TB_APLIKASI')->orderBy('ID_APLIKASI', 'asc');
+        $query = Aplikasi::orderBy('ID_APLIKASI', 'asc');
 
         if ($request->has('search') && $request->search != '') {
             $search = $request->search;
@@ -29,7 +29,7 @@ class ApplicationController extends Controller
             'NAMA_APPLICATION' => 'required',
         ]);
 
-        DB::table('TB_APLIKASI')->insert([
+        Aplikasi::create([
             'NAMA_APLIKASI' => $request->NAMA_APPLICATION,
         ]);
 
@@ -44,8 +44,7 @@ class ApplicationController extends Controller
             'NAMA_APPLICATION' => 'required',
         ]);
 
-        DB::table('TB_APLIKASI')
-            ->where('ID_APLIKASI', $id)
+        Aplikasi::where('ID_APLIKASI', $id)
             ->update([
                 'NAMA_APLIKASI' => $request->NAMA_APPLICATION,
             ]);
@@ -57,7 +56,7 @@ class ApplicationController extends Controller
 
     public function destroy($id)
     {
-        DB::table('TB_APLIKASI')->where('ID_APLIKASI', $id)->delete();
+        Aplikasi::where('ID_APLIKASI', $id)->delete();
         return redirect()
             ->route('application.index')
             ->with('success', 'Application deleted successfully.');

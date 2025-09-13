@@ -66,7 +66,6 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
-                                            <th>Created At</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($users as $user)
@@ -74,10 +73,11 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone }}</td>
-                                                <td>{{ $user->created_at }}</td>
                                                 <td>
-                                                    <a href="#" class="btn btn-primary" data-toggle="modal"
-                                                        data-target="#addNewUserModal">Edit</a>
+                                                    <a href="#" class="btn btn-primary btn-edit-user"
+                                                        data-id="{{ $user->id }}" data-name="{{ $user->name }}"
+                                                        data-email="{{ $user->email }}"
+                                                        data-phone="{{ $user->phone }}">Edit</a>
                                                     <a href="#" class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -85,7 +85,7 @@
                                     </table>
                                 </div>
                                 <div class="float-right">
-                                    {{ $users->withQueryString()->links() }}
+                                    {{ $users->links() }}
                                 </div>
                             </div>
                         </div>
@@ -93,7 +93,7 @@
                 </div>
             </div>
         </section>
-        @include('pages.users.components.form-add-user')
+        @include('pages.users.components.form-edit-user')
     </div>
 @endsection
 
@@ -111,4 +111,19 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script>
+        $(document).on('click', '.btn-edit-user', function() {
+            var id = $(this).data('id');
+            var name = $(this).data('name')
+            var email = $(this).data('email');
+            var phone = $(this).data('phone');
+            $('#edit_id_user').val(id);
+            $('#edit_name_user').val(name);
+            $('#edit_email_user').val(email);
+            $('#edit_phone_user').val(phone);
+            // Set action form
+            $('#editUserForm').attr('action', '/user/' + id);
+            $('#editUserModal').modal('show');
+        });
+    </script>
 @endpush

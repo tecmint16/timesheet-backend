@@ -8,5 +8,10 @@ class Cluster extends Model
 {
     protected $table = 'TB_CLUSTER';
     protected $primaryKey = 'ID_CLUSTER';
-    protected $fillable = ['ID_CLUSTER', 'NAMA_CLUSTER'];
+    protected $fillable = ['NAMA_CLUSTER'];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'ID_CLUSTER', 'ID_CLUSTER');
+    }
 }

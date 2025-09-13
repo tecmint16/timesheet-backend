@@ -9,7 +9,11 @@ class Aplikasi extends Model
     protected $table = 'TB_APLIKASI';
     protected $primaryKey = 'ID_APLIKASI';
     protected $fillable = [
-        'ID_APLIKASI',
         'NAMA_APLIKASI',
     ];
+
+    public function projects()
+    {
+        return $this->hasMany(Project::class, 'ID_APLIKASI', 'ID_APLIKASI');
+    }
 }

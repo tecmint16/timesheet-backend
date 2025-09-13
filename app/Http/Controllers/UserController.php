@@ -4,24 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use App\Models\Project;
+use App\Models\Cluster;
+use App\Models\Aplikasi;
 
 class UserController extends Controller
 {
-    public function index(Request $request)
+    public function index(Request $id)
     {
-        // Fetch users from the database (you can customize this as needed)
-        $users = DB::table('users')
-            // Apply search filter if provided
-            ->when($request->input('name'), function ($query, $name) {
-                return $query->where('name', 'like', '%' . $name . '%');
-            })
-            // Order by latest
-            ->orderBy('id', 'desc')
-            // Paginate results
-            ->paginate(10);
-        // $users = User::paginate(10);
-        // Return the view with users data
-        return view('pages.users.index', compact('users'));
+        $users = User::with(['project.cluster', 'project.aplikasi'])
+            ->orderBy('id', 'asc')
+            ->paginate(10)
+            ->withQueryString();
+
+        $projects = Project::all();
+        $clusters = Cluster::all();
+        $applications = Aplikasi::all();
+
+        return view('pages.users.index', compact('users', 'projects', 'clusters', 'applications'));
     }
 }
