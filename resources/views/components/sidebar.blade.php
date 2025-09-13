@@ -40,7 +40,7 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-th"></i><span>Cluster</span></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="nav-link" href="#">All Cluster</a>
+                        <a class="nav-link" href="{{ route('cluster.index') }}">All Cluster</a>
                     </li>
                 </ul>
             </li>
