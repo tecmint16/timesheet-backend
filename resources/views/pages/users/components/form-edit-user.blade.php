@@ -50,6 +50,36 @@
                             <input type="text" class="form-control" name="PHONE_USER" id="edit_phone_user" readonly>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <label>Nama Project</label>
+                        <select class="form-control" name="NAMA_PROJECT_USER" id="edit_nama_project_user">
+                            @foreach ($projects as $project)
+                                <option>{{ $project->nama_project }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Nama Cluster</label>
+                        <select class="form-control" name="NAMA_CLUSTER_USER" id="edit_nama_cluster_user">
+                            @foreach ($clusters as $cluster)
+                                <option>{{ $cluster->nama_cluster }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Aplikasi</label>
+                        <select class="form-control select2" name="NAMA_APLIKASI_USER" id="edit_nama_aplikasi_user"
+                            multiple="">
+                            @foreach ($applications as $application)
+                                <option>{{ $application->nama_aplikasi }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

@@ -66,6 +66,9 @@
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone</th>
+                                            <th>Nama Project</th>
+                                            <th>Nama Cluster</th>
+                                            <th>Aplikasi</th>
                                             <th>Action</th>
                                         </tr>
                                         @foreach ($users as $user)
@@ -73,11 +76,16 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone }}</td>
+                                                <td>{{ $user->project->name ?? '' }}</td>
+                                                <td>{{ $user->project->cluster->name ?? '' }}</td>
+                                                <td>{{ $user->project->aplikasi->nama_aplikasi ?? '' }}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-primary btn-edit-user"
                                                         data-id="{{ $user->id }}" data-name="{{ $user->name }}"
-                                                        data-email="{{ $user->email }}"
-                                                        data-phone="{{ $user->phone }}">Edit</a>
+                                                        data-email="{{ $user->email }}" data-phone="{{ $user->phone }}"
+                                                        data-project="{{ $user->project->name ?? '' }}"
+                                                        data-cluster="{{ $user->project->cluster->name ?? '' }}"
+                                                        data-aplikasi="{{ $user->project->aplikasi->nama_aplikasi ?? '' }}">Edit</a>
                                                     <a href="#" class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -117,10 +125,14 @@
             var name = $(this).data('name')
             var email = $(this).data('email');
             var phone = $(this).data('phone');
+            var nama_project = $(this).data('nama_project');
+            var nama_cluster = $(this).data('nama_cluster');
             $('#edit_id_user').val(id);
             $('#edit_name_user').val(name);
             $('#edit_email_user').val(email);
             $('#edit_phone_user').val(phone);
+            $('#edit_nama_project_user').val(nama_project);
+            $('#edit_nama_cluster_user').val(nama_cluster);
             // Set action form
             $('#editUserForm').attr('action', '/user/' + id);
             $('#editUserModal').modal('show');
