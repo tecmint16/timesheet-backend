@@ -15,6 +15,11 @@ class Project extends Model
         'ID_APLIKASI'
     ];
 
+    public function clusters()
+    {
+        return $this->hasMany(Cluster::class, 'id_project');
+    }
+
     // Relasi ke Cluster
     public function cluster()
     {

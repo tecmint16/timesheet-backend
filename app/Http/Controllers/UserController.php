@@ -23,4 +23,24 @@ class UserController extends Controller
 
         return view('pages.users.index', compact('users', 'projects', 'clusters', 'applications'));
     }
+
+    public function store(Request $request)
+    {
+        $user = User::create($request->only(['name', 'email', 'phone', 'id_project', 'id_cluster']));
+        $user->aplikasis()->sync($request->input('aplikasi_ids', []));
+        return redirect()->route('user.index')->with('success', 'User created successfully.');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'id_project' => 'required|exists:tb_project,id_project',
+            'id_cluster' => 'required|exists:tb_cluster,id_cluster',
+        ]);
+
+        $user = User::findOrFail($id);
+        $user->update($request->only(['name', 'email', 'phone', 'id_project', 'id_cluster']));
+        $user->aplikasis()->sync($request->input('aplikasi_ids', []));
+        return redirect()->route('user.index')->with('success', 'User updated successfully.');
+    }
 }

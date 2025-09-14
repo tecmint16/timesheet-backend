@@ -21,6 +21,9 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'phone',
+        'id_project',
+        'id_cluster',
     ];
 
     /**
@@ -51,13 +54,13 @@ class User extends Authenticatable
         return $this->belongsTo(Project::class, 'id_project', 'id_project');
     }
 
-    public function aplikasi()
-    {
-        return $this->belongsTo(Aplikasi::class, 'id_aplikasi', 'id_aplikasi');
-    }
-
     public function cluster()
     {
         return $this->belongsTo(Cluster::class, 'id_cluster', 'id_cluster');
+    }
+
+    public function aplikasis()
+    {
+        return $this->belongsToMany(Aplikasi::class, 'tb_aplikasi_user', 'id_user', 'id_aplikasi');
     }
 }

@@ -10,8 +10,15 @@ class Cluster extends Model
     protected $primaryKey = 'ID_CLUSTER';
     protected $fillable = ['NAMA_CLUSTER'];
 
+
     public function projects()
     {
         return $this->hasMany(Project::class, 'ID_CLUSTER', 'ID_CLUSTER');
+    }
+
+    // Relasi ke Project
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'id_project');
     }
 }

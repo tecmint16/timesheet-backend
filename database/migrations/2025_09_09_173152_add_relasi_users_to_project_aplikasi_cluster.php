@@ -14,17 +14,11 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             // Tambah kolom foreign key
             $table->unsignedBigInteger('id_project')->nullable()->after('id_user');
-            $table->unsignedBigInteger('id_aplikasi')->nullable()->after('id_project');
-            $table->unsignedBigInteger('id_cluster')->nullable()->after('id_aplikasi');
+            $table->unsignedBigInteger('id_cluster')->nullable()->after('id_project');
 
             // Relasi ke tb_project
             $table->foreign('id_project')
                 ->references('id_project')->on('tb_project')
-                ->onDelete('set null');
-
-            // Relasi ke tb_aplikasi
-            $table->foreign('id_aplikasi')
-                ->references('id_aplikasi')->on('tb_aplikasi')
                 ->onDelete('set null');
 
             // Relasi ke tb_cluster
@@ -41,10 +35,9 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->dropForeign(['id_project']);
-            $table->dropForeign(['id_aplikasi']);
             $table->dropForeign(['id_cluster']);
 
-            $table->dropColumn(['id_project', 'id_aplikasi', 'id_cluster']);
+            $table->dropColumn(['id_project', 'id_cluster']);
         });
     }
 };

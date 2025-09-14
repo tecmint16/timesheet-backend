@@ -76,16 +76,25 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td>{{ $user->phone }}</td>
-                                                <td>{{ $user->project->name ?? '' }}</td>
-                                                <td>{{ $user->project->cluster->name ?? '' }}</td>
-                                                <td>{{ $user->project->aplikasi->nama_aplikasi ?? '' }}</td>
+                                                <td>{{ $user->project->nama_project ?? '' }}</td>
+                                                <td>{{ $user->cluster->nama_cluster ?? '' }}</td>
+                                                <td>
+                                                    @if ($user->aplikasis->isNotEmpty())
+                                                        @foreach ($user->aplikasis as $aplikasi)
+                                                            <span
+                                                                class="badge badge-primary">{{ $aplikasi->nama_aplikasi }}</span>
+                                                        @endforeach
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
                                                 <td>
                                                     <a href="#" class="btn btn-primary btn-edit-user"
                                                         data-id="{{ $user->id }}" data-name="{{ $user->name }}"
                                                         data-email="{{ $user->email }}" data-phone="{{ $user->phone }}"
-                                                        data-project="{{ $user->project->name ?? '' }}"
-                                                        data-cluster="{{ $user->project->cluster->name ?? '' }}"
-                                                        data-aplikasi="{{ $user->project->aplikasi->nama_aplikasi ?? '' }}">Edit</a>
+                                                        data-project="{{ $user->project->id_project ?? '' }}"
+                                                        data-cluster="{{ $user->cluster->id_cluster ?? '' }}"
+                                                        data-aplikasi="{{ $user->aplikasis->pluck('id_aplikasi')->join(',') }}">Edit</a>
                                                     <a href="#" class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -125,17 +134,27 @@
             var name = $(this).data('name')
             var email = $(this).data('email');
             var phone = $(this).data('phone');
-            var nama_project = $(this).data('nama_project');
-            var nama_cluster = $(this).data('nama_cluster');
+            var project = $(this).data('project') || '';
+            var cluster = $(this).data('cluster') || '';
+            var aplikasi = $(this).data('aplikasi') ? $(this).data('aplikasi').split(',') : [];
             $('#edit_id_user').val(id);
             $('#edit_name_user').val(name);
             $('#edit_email_user').val(email);
             $('#edit_phone_user').val(phone);
-            $('#edit_nama_project_user').val(nama_project);
-            $('#edit_nama_cluster_user').val(nama_cluster);
+            $('#edit_project_user').val(project);
+            $('#edit_cluster_user').val(cluster);
+
+            // Set aplikasi yang dimiliki user
+            $('#edit_aplikasi_ids\\[\\]_user').val(aplikasi).trigger('change');
+
             // Set action form
             $('#editUserForm').attr('action', '/user/' + id);
             $('#editUserModal').modal('show');
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
         });
     </script>
 @endpush

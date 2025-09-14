@@ -16,4 +16,9 @@ class Aplikasi extends Model
     {
         return $this->hasMany(Project::class, 'ID_APLIKASI', 'ID_APLIKASI');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'tb_aplikasi_user', 'id_aplikasi', 'id_user');
+    }
 }

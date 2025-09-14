@@ -11,7 +11,7 @@
 ✅ 11. Pada Tabel Timesheet tambahkan user_id
 ✅ 12. Buat UI dan Fungsi untuk Insert Data Project
 ✅ 13. Buat UI dan Fungsi untuk Insert Data Aplikasi
-14. Buat UI dan Fungsi untuk Insert Data Cluster
-15. Buat Fungsi untuk Update Data User
+✅ 14. Buat UI dan Fungsi untuk Insert Data Cluster
+✅ 15. Buat Fungsi untuk Update Data User
 16. Tampilkan Data User(Project, Cluster & Aplikasi) pada halaman Insert Timesheet
 17. Buat agar bisa Insert Data Timesheet

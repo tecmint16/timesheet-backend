@@ -53,28 +53,35 @@
 
                     <div class="form-group">
                         <label>Nama Project</label>
-                        <select class="form-control" name="NAMA_PROJECT_USER" id="edit_nama_project_user">
+                        <select class="form-control" name="id_project" id="edit_id_project_user">
+                            <option value="">Pilih Project</option>
                             @foreach ($projects as $project)
-                                <option>{{ $project->nama_project }}</option>
+                                <option value="{{ $project->id_project }}"
+                                    {{ old('id_project', $user->id_project) == $project->id_project ? 'selected' : '' }}>
+                                    {{ $project->nama_project }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Nama Cluster</label>
-                        <select class="form-control" name="NAMA_CLUSTER_USER" id="edit_nama_cluster_user">
+                        <select class="form-control" name="id_cluster" id="edit_id_cluster_user">
+                            <option value="">Pilih Cluster</option>
                             @foreach ($clusters as $cluster)
-                                <option>{{ $cluster->nama_cluster }}</option>
+                                <option value="{{ $cluster->id_cluster }}"
+                                    {{ old('id_cluster', $user->id_cluster) == $cluster->id_cluster ? 'selected' : '' }}>
+                                    {{ $cluster->nama_cluster }}</option>
                             @endforeach
                         </select>
                     </div>
 
                     <div class="form-group">
                         <label>Aplikasi</label>
-                        <select class="form-control select2" name="NAMA_APLIKASI_USER" id="edit_nama_aplikasi_user"
-                            multiple="">
+                        <select class="form-control select2" name="aplikasi_ids[]" id="edit_aplikasi_ids[]_user"
+                            multiple>
                             @foreach ($applications as $application)
-                                <option>{{ $application->nama_aplikasi }}</option>
+                                <option value="{{ $application->id_aplikasi }}">{{ $application->nama_aplikasi }}
+                                </option>
                             @endforeach
                         </select>
                     </div>
