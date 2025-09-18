@@ -31,7 +31,6 @@ Route::middleware(['auth'])->group(function () {
 
     // Timesheet Routes
     Route::resource('timesheet', TimesheetController::class);
-    Route::get('timesheet-table', [TimesheetController::class, 'table'])->name('timesheet.table');
 
     // Project Routes
     Route::resource('project', ProjectController::class);

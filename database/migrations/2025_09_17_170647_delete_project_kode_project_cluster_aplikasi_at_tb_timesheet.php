@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tb_timesheet', function (Blueprint $table) {
-            $table->string('id_user')->nullable()->after('tanggal');
-            $table->string('id_project')->nullable()->after('status_kehadiran');
+            $table->dropColumn(['PROJECT', 'KODE_PROJECT', 'CLUSTER', 'APLIKASI']);
         });
     }
 
@@ -23,7 +22,10 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tb_timesheet', function (Blueprint $table) {
-            $table->dropColumn(['id_user', 'id_project']);
+            $table->string('PROJECT')->nullable();
+            $table->string('KODE_PROJECT')->nullable();
+            $table->string('CLUSTER')->nullable();
+            $table->string('APLIKASI')->nullable();
         });
     }
 };

@@ -19,7 +19,13 @@
             <div class="section-header">
                 <h1>Timesheet</h1>
                 <div class="section-header-button">
-                    <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addNewTimesheetModal">Add
+                    <a href="#" class="btn btn-primary btn-add-timesheet" data-tanggal="" data-shifting=""
+                        data-jam_masuk="" data-jam_pulang="" data-total_jam_kerja="" data-status_kehadiran=""
+                        data-id_user="{{ $user ?? '' }}" data-id_project="{{ $userProjects->id_project ?? '' }}"
+                        data-project="{{ $userProjects->nama_project ?? '' }}"
+                        data-kode_project="{{ $userProjects->kode_project ?? '' }}"
+                        data-id_cluster="{{ $userProjects->id_cluster ?? '' }}"
+                        data-cluster="{{ $userClusters->nama_cluster ?? '' }}" data-aplikasi="" data-kegiatan="">Add
                         New</a>
                 </div>
                 <div class="section-header-breadcrumb">
@@ -83,10 +89,19 @@
                                                 <td>{{ $timesheet->jam_pulang }}</td>
                                                 <td>{{ $timesheet->total_jam_kerja }}</td>
                                                 <td>{{ $timesheet->status_kehadiran }}</td>
-                                                <td>{{ $timesheet->project }}</td>
-                                                <td>{{ $timesheet->kode_project }}</td>
-                                                <td>{{ $timesheet->cluster }}</td>
-                                                <td>{{ $timesheet->aplikasi }}</td>
+                                                <td>{{ $timesheet->project->nama_project }}</td>
+                                                <td>{{ $timesheet->project->kode_project }}</td>
+                                                <td>{{ $timesheet->cluster->nama_cluster }}</td>
+                                                <td>
+                                                    @if ($timesheet->aplikasis->isNotEmpty())
+                                                        @foreach ($timesheet->aplikasis as $aplikasi)
+                                                            <span
+                                                                class="badge badge-primary">{{ $aplikasi->nama_aplikasi }}</span>
+                                                        @endforeach
+                                                    @else
+                                                        -
+                                                    @endif
+                                                </td>
                                                 <td>{{ $timesheet->kegiatan }}</td>
                                                 <td>
                                                     <a href="#" class="btn btn-primary">Edit</a>
@@ -123,4 +138,69 @@
     <!-- Page Specific JS File -->
     <script src="{{ asset('js/page/features-posts.js') }}"></script>
     <script src="{{ asset('js/page/forms-advanced-forms.js') }}"></script>
+    <script>
+        $(document).on('click', '.btn-add-timesheet', function() {
+            var id_user = $(this).data('id_user') || 'ee';
+            var id_project = $(this).data('id_project') || 'ee';
+            var project = $(this).data('project') || 'ee';
+            var kode_project = $(this).data('kode_project') || 'ee';
+            var id_cluster = $(this).data('id_cluster') || 'ee';
+            var cluster = $(this).data('cluster') || '';
+            $('#add_id_user_user').val(id_user);
+            $('#add_id_project_user').val(id_project);
+            $('#add_project_user').val(project);
+            $('#add_kode_project_user').val(kode_project);
+            $('#add_id_cluster_user').val(id_cluster);
+            $('#add_cluster_user').val(cluster);
+
+            // Set action form#addNewTimesheetModal
+            $('#addNewTimesheetForm').attr('action', '/timesheet');
+            $('#addNewTimesheetModal').modal('show');
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.select2').select2();
+        });
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const tanggal = document.getElementById("tanggal"); // input tanggal di atas
+            const jamMasuk = document.getElementById("jam_masuk");
+            const jamPulang = document.getElementById("jam_pulang");
+            const totalJam = document.getElementById("total_jam_kerja");
+
+            function formatForOracle(dateObj) {
+                let yyyy = dateObj.getFullYear();
+                let mm = String(dateObj.getMonth() + 1).padStart(2, '0');
+                let dd = String(dateObj.getDate()).padStart(2, '0');
+                let hh = String(dateObj.getHours()).padStart(2, '0');
+                let mi = String(dateObj.getMinutes()).padStart(2, '0');
+                let ss = String(dateObj.getSeconds()).padStart(2, '0');
+                return `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`;
+            }
+
+            function hitungJamKerja() {
+                if (tanggal.value && jamMasuk.value && jamPulang.value) {
+                    // gabungkan tanggal dengan jam
+                    let masuk = new Date(tanggal.value + "T" + jamMasuk.value + ":00");
+                    let pulang = new Date(tanggal.value + "T" + jamPulang.value + ":00");
+
+                    document.getElementById("jam_masuk_oracle").value = formatForOracle(masuk);
+                    document.getElementById("jam_pulang_oracle").value = formatForOracle(pulang);
+
+                    if (pulang > masuk) {
+                        let diffMs = pulang - masuk;
+                        let diffJam = diffMs / (1000 * 60 * 60);
+                        totalJam.value = diffJam.toFixed(2) + " Jam";
+                    } else {
+                        totalJam.value = "Jam pulang harus lebih besar dari jam masuk!";
+                    }
+                }
+            }
+
+            jamMasuk.addEventListener("change", hitungJamKerja);
+            jamPulang.addEventListener("change", hitungJamKerja);
+        });
+    </script>
 @endpush

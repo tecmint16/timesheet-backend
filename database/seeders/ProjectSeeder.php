@@ -13,8 +13,6 @@ class ProjectSeeder extends Seeder
      */
     public function run(): void
     {
-        // Project::factory(5)->create();
-
         Project::create([
             'KODE_PROJECT' => 'PRJ001',
             'NAMA_PROJECT' => 'Upgrade Core Custody System',

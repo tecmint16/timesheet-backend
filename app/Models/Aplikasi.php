@@ -21,4 +21,9 @@ class Aplikasi extends Model
     {
         return $this->belongsToMany(User::class, 'tb_aplikasi_user', 'id_aplikasi', 'id_user');
     }
+
+    public function timesheets()
+    {
+        return $this->belongsToMany(User::class, 'tb_aplikasi_timesheet', 'id_aplikasi', 'id_timesheet');
+    }
 }

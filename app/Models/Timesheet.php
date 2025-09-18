@@ -10,29 +10,46 @@ class Timesheet extends Model
 
     use HasFactory;
 
-    protected $table = 'TB_TIMESHEET';
-    protected $primaryKey = 'ID';
+    protected $table = 'tb_timesheet';
+    protected $primaryKey = 'id';
     public $timestamps = false;
 
     protected $fillable = [
-        'TANGGAL',
-        'SHIFTING',
-        'JAM_MASUK',
-        'JAM_PULANG',
-        'TOTAL_JAM_KERJA',
-        'STATUS_KEHADIRAN',
-        'PROJECT',
-        'KODE_PROJECT',
-        'CLUSTER',
-        'APLIKASI',
-        'KEGIATAN',
-        'ID_USER',
-        'ID_PROJECT',
+        'tanggal',
+        'shifting',
+        'jam_masuk',
+        'jam_pulang',
+        'total_jam_kerja',
+        'status_kehadiran',
+        'kegiatan',
+        'id_user',
+        'id_project',
+        'id_cluster',
     ];
 
     protected $casts = [
-        'TANGGAL'    => 'datetime:Y-m-d H:i:s',
-        'JAM_MASUK'  => 'datetime:Y-m-d H:i:s',
-        'JAM_PULANG' => 'datetime:Y-m-d H:i:s',
+        'tanggal'    => 'datetime:Y-m-d H:i:s',
+        'jam_masuk'  => 'datetime:Y-m-d H:i:s',
+        'jam_pulang' => 'datetime:Y-m-d H:i:s',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user', 'id');
+    }
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class, 'id_project', 'id_project');
+    }
+
+    public function cluster()
+    {
+        return $this->belongsTo(Cluster::class, 'id_cluster', 'id_cluster');
+    }
+
+    public function aplikasis()
+    {
+        return $this->belongsToMany(Aplikasi::class, 'tb_aplikasi_timesheet', 'id_timesheet', 'id_aplikasi');
+    }
 }

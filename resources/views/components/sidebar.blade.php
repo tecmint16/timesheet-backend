@@ -12,10 +12,10 @@
                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-clock"></i><span>Timesheet</span></a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a class="nav-link" href="{{ route('timesheet.index') }}">Timesheets Dashboard</a>
+                        <a class="nav-link" href="#">Timesheets Dashboard</a>
                     </li>
                     <li>
-                        <a class="nav-link" href="{{ route('timesheet.table') }}">Timesheets Table</a>
+                        <a class="nav-link" href="{{ route('timesheet.index') }}">Timesheets Table</a>
                     </li>
                 </ul>
             </li>
